@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 /**
  * 
- * @author juha
+ * @author Juha Kurki
  *
  */
 public class FuzzyClock {
@@ -25,6 +25,9 @@ public class FuzzyClock {
 		clock.clock();
 	}
 	
+	/**
+	 * 
+	 */
 	private void clock(){
 		String inputString = "";
 		Pattern pattern = Pattern.compile("[a-zA-Z]");
@@ -58,8 +61,10 @@ public class FuzzyClock {
 	
 	/**
 	 * Format reply according to accuracy level
-	 * @param input
-	 * @return
+	 * 
+	 * @param input Input from user
+	 * @param now	Current moment in {@link GregorianCalendar}
+	 * @return	Current moment presented in a selected fuzziness level.
 	 */
 	private String formatTime(int input, GregorianCalendar now){
 		String returnValue = "";
@@ -88,7 +93,7 @@ public class FuzzyClock {
 				returnValue = getMinuteWord(minutes) + " " + getHourWord(hour);
 			}
 			break;
-		case 4: //five o'clock
+		case 4: //twelve o'clock
 			hour = now.get(Calendar.HOUR_OF_DAY);
 			if (now.get(Calendar.MINUTE) > 30){
 				hour++;
@@ -135,8 +140,8 @@ public class FuzzyClock {
 
 	/**
 	 * Interpret minute number to word. Value should be divisible with 5.
-	 * @param minute
-	 * @return
+	 * @param minute Integer value 0,5,10, ... ,60
+	 * @return	String presentation of minutes related to current hour until 30 and to next hour after that.
 	 */
 	private String getMinuteWord (int minute){
 		String returnValue = "";
@@ -189,8 +194,8 @@ public class FuzzyClock {
 	
 	/**
 	 * Return next minute value which is divisible with 5. For example 42 -> 45.
-	 * @param minute
-	 * @return
+	 * @param minute	current minute value
+	 * @return	next minute value which is divisible with 5.
 	 */
 	private int getNextFiveMinute(int minute){
 		int returnMinute = 0;
@@ -206,8 +211,8 @@ public class FuzzyClock {
 	
 	/**
 	 * Interpret hour number to word.
-	 * @param hour
-	 * @return
+	 * @param hour integer value of hour
+	 * @return	String presentation of hour
 	 */
 	private String getHourWord(int hour){
 		String returnValue = "";
@@ -305,7 +310,7 @@ public class FuzzyClock {
 
 	/**
 	 * Returns input from console.
-	 * @return
+	 * @return	user inserted value
 	 */
 	private String readLine(){
 		Console console=System.console();
